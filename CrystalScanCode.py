@@ -350,7 +350,7 @@ def crystal_scan(crystal):
         lpf = 0
         lpf2 = 0
         motor.write(down_position)
-        print("no LPF before sample")
+        print("355 nm LPF before sample")
         click1 = 1
         click2 = 1
         data = []
@@ -361,8 +361,8 @@ def crystal_scan(crystal):
             print("---------------------------------Excitation wl: ", wl)
             if (wl<370)&(click1 == 1):
                 click1 = 0
-                motor.write(down_position)# put a 355 LPF BEFORE crystal 
-                print("355 nm LPF before sample")
+                motor.write(up_position)# put a 355 LPF BEFORE crystal 
+                print("no LPF before sample")
                 time.sleep(1.)
                 spf2 = 355
             if (wl<=400)&(click2 == 1):
@@ -373,7 +373,7 @@ def crystal_scan(crystal):
             click3 = 1
             for state in set_up_list:
                 data.extend([measurment_number + number + 1 for number in range(11)])
-                print("-----------Set Up state: ", state)
+                print("---------------------Set Up state: ", state)
                 spf,lpf,spectro_grating,spectro_center_wl = set_up(wl,state)
                 data.extend([wl for number in range(11)])
                 data.extend([spectro_center_wl for number in range(11)])
@@ -389,5 +389,4 @@ def crystal_scan(crystal):
         print(data)
         print(c, ID, date, t)
 #        df = create_data_fram(data, c, ID, date)
-        ID = ID + 1
     return df
