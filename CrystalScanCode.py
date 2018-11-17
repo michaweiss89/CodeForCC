@@ -1,9 +1,5 @@
 def first_state(wl): #sorry...
-    if  (wl<400):
-        SPF.command('pos=6')
-        print("SPF is in posiotion 6 Empty")
-        spf = np.nan
-    if (wl>=400)&(wl<440):
+    if  (wl<440):
         SPF.command('pos=1')
         print("SPF is in posiotion 1 Wavlength 450")
         spf = 450
