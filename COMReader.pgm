@@ -13,22 +13,38 @@ case strcomp(a$,"Exit")
    print("Stoped ANDOR porgram")
    i=5
    break
-
+  
+ case strcomp(a$,"ClearScreen")
+ 	cls()
+	break
+case strcomp(a$,"SetShutter") :rem DO NOT USE YET NEED TO
+	comread(6,acq_type$)
+	if !strcomp(acq_type$,"close")  then
+		SetShutter(0, 1)
+		print("Shutter is closed")
+		comwrite (6,"Shutter is closed")
+	endif	
+	if !strcomp(acq_type$,"open")  then
+		SetShutter(1, 1)
+		print("Shutter is open")
+		comwrite (6,"Shutter is open")
+	endif
+   break
+ 
 case strcomp(a$,"SetGrating") :rem
 	comread(6,grating$)
 	grating =  val(grating$)
 	SetGrating(grating)
    	grating$ = GetGrating()
-   	Responce$ = "spectro grating set to " + grating$
-   	comwrite (6,Responce$)
-   	print(Responce$)
+   	Responce$ = "spectro grating set to "
+    	print(Responce$)
+    	print(grating$)
+   	comwrite (6,grating$)
 	break
 
 case strcomp(a$,"GetGrating") :rem
    	grating$ = GetGrating()
-   	Responce$ = "grating set to " + grating$
-   	comwrite (6,Responce$)
-   	print(Responce$)
+   	comwrite (6,grating$)
 	break
 
 case strcomp(a$,"SetReadoutMode") :rem
@@ -58,25 +74,24 @@ case strcomp(a$,"CArea"):
  	break
  
 case strcomp(a$,"SetWavelength") :rem command should be writen as "SetExposureTime\r552.3\r".
-   comread(6,int$)
-   print(int$)
-   SetWavelength(val(int$))
-   wave = GetWavelength()
-   Responce$ = "Wavelength set to " + wave 
-   comwrite (6,Responce$ )
-   print(Responce$)
-   break
+  	comread(6,int$)
+	SetWavelength(val(int$))
+	wave$ = GetWavelength()
+	Responce$ = "Wavelength set to " + wave$ 
+   	comwrite (6,Responce$ )
+	print(wave$)
+   	break
  
    
 case strcomp(a$,"SetExposureTime") :rem command should be writen as "SetExposureTime\r12.5\r" or 12.5 is in seconds
-   comread(6,float$)
-   print(float$)
-   SetExposureTime(val(float$))
-   ExposureTime = GetExposureTime()
-   Responce$ = "Exposure time set to " + ExposureTime 
-   comwrite (6,Responce$ )
-   print(Responce$)
-   break
+	comread(6,float$)
+   	SetExposureTime(val(float$))
+   	ExposureTime$ = GetExposureTime()
+   	Responce$ = "Exposure time set to " + ExposureTime$ 
+   	comwrite (6,ExposureTime$)
+   	print(Responce$)
+     	print(ExposureTime$)
+   	break
 
 
 case strcomp(a$,"Run") 
