@@ -1,4 +1,4 @@
-baud(6,4800)
+baud(6,38400)
 i =0
 CaseTest = 0 :rem the truth value of strcomp 
 
@@ -13,8 +13,8 @@ case strcomp(a$,"Exit")
    print("Stoped ANDOR porgram")
    i=5
    break
-  
- case strcomp(a$,"ClearScreen")
+ 
+case strcomp(a$,"ClearScreen")
  	cls()
 	break
 
@@ -27,6 +27,11 @@ case strcomp(a$,"SetShutter") :rem DO NOT USE YET NEED TO
 	endif	
 	if !strcomp(acq_type$,"open")  then
 		SetShutter(1, 1)
+		print("Shutter is open")
+		comwrite (6,"Shutter is open")
+	endif
+	if !strcomp(acq_type$,"auto")  then
+		SetShutter(2, 1)
 		print("Shutter is open")
 		comwrite (6,"Shutter is open")
 	endif
