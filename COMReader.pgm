@@ -17,6 +17,7 @@ case strcomp(a$,"Exit")
  case strcomp(a$,"ClearScreen")
  	cls()
 	break
+
 case strcomp(a$,"SetShutter") :rem DO NOT USE YET NEED TO
 	comread(6,acq_type$)
 	if !strcomp(acq_type$,"close")  then
@@ -78,10 +79,16 @@ case strcomp(a$,"SetWavelength") :rem command should be writen as "SetExposureTi
 	SetWavelength(val(int$))
 	wave$ = GetWavelength()
 	Responce$ = "Wavelength set to " + wave$ 
-   	comwrite (6,Responce$ )
+   	comwrite (6,wave$ )
+   	print(Responce$)
 	print(wave$)
    	break
- 
+  
+ case strcomp(a$,"GetWavelength") :rem 
+	wave$ = GetWavelength()
+   	comwrite (6,wave$ )
+	print(wave$)
+   	break
    
 case strcomp(a$,"SetExposureTime") :rem command should be writen as "SetExposureTime\r12.5\r" or 12.5 is in seconds
 	comread(6,float$)
@@ -94,6 +101,25 @@ case strcomp(a$,"SetExposureTime") :rem command should be writen as "SetExposure
    	break
 
 
+case strcomp(a$,"SetSlit(") :rem command should be writen as "SetExposureTime\r12.5\r" or 12.5 is in seconds
+	comread(6,float$)
+   	SetSlit(val(float$))
+   	Slit$ = GetSlit()
+   	Responce$ = "Exposure time set to " + Slit$ 
+   	comwrite (6,Slit$)
+   	print(Responce$)
+   	print(Slit$)
+   	break
+
+case strcomp(a$,"GetExposureTime") :rem command should be writen as "SetExposureTime\r12.5\r" or 12.5 is in seconds
+   	ExposureTime$ = GetExposureTime()
+   	comwrite (6,ExposureTime$)
+   	break
+  
+ case strcomp(a$,"GetSlit") :rem command should be writen as "SetExposureTime\r12.5\r" or 12.5 is in seconds
+   	slit$ = GetSlit()
+   	comwrite (6,slit$)
+   	break  
 case strcomp(a$,"Run") 
    run()
    comwrite (6,"Done")
