@@ -101,7 +101,7 @@ case strcomp(a$,"SetExposureTime") :rem command should be writen as "SetExposure
    	break
 
 
-case strcomp(a$,"SetSlit(") :rem command should be writen as "SetExposureTime\r12.5\r" or 12.5 is in seconds
+case strcomp(a$,"SetSlit"):rem command should be writen as "SetExposureTime\r12.5\r" or 12.5 is in seconds
 	comread(6,float$)
    	SetSlit(val(float$))
    	Slit$ = GetSlit()
