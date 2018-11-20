@@ -18,7 +18,7 @@ case strcomp(a$,"ClearScreen")
  	cls()
 	break
 
-case strcomp(a$,"SetShutter") :rem DO NOT USE YET NEED TO
+case strcomp(a$,"SetShutter") :rem 
 	comread(6,acq_type$)
 	if !strcomp(acq_type$,"close")  then
 		SetShutter(0, 1)
@@ -32,11 +32,11 @@ case strcomp(a$,"SetShutter") :rem DO NOT USE YET NEED TO
 	endif
 	if !strcomp(acq_type$,"auto")  then
 		SetShutter(2, 1)
-		print("Shutter is open")
-		comwrite (6,"Shutter is open")
+		print("Shutter is on auto")
+		comwrite (6,"Shutter is on auto")
 	endif
    break
- 
+
 case strcomp(a$,"SetGrating") :rem
 	comread(6,grating$)
 	grating =  val(grating$)
@@ -124,7 +124,8 @@ case strcomp(a$,"GetExposureTime") :rem command should be writen as "SetExposure
  case strcomp(a$,"GetSlit") :rem command should be writen as "SetExposureTime\r12.5\r" or 12.5 is in seconds
    	slit$ = GetSlit()
    	comwrite (6,slit$)
-   	break  
+   	break
+
 case strcomp(a$,"Run") 
    run()
    comwrite (6,"Done")
@@ -138,7 +139,16 @@ case strcomp(a$,"Save") :rem command should be writen as "Save\rc:\file\asciname
    comwrite (6,"Saved ascii file in "+Path$)
    print("Saved ascii file in "+Path$)
    break
+
+
+case strcomp(a$,"SaveSif") :rem command should be writen as "Save\rc:\file\asciname.asc\r".
+   comread(6,Path$)
+   Save(#0, Path$) 
+   comwrite (6,"Saved sif file in "+Path$)
+   print("Saved sif file in "+Path$)
+   break
 case else
+
   comwrite (6,"Not a valid command")
   print("Not a valid command")
   break
